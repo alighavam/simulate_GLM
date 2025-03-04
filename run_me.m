@@ -25,11 +25,11 @@ onsets = [half1';half2'];
 
 %% Run Simulation
 mu = 0;
-sigma = 0.004;
+sigma = 0;
 % cannonical hrf: 
 hrf_params_canon = [6 16 1 1 2 0 32];
 % an example young man hrf: 
-hrf_params_youngMan = [4.5 11 1 1 100 0 32];
+hrf_params_youngMan = [4.5 11 1 1 1 0 32];
 
 figure;
 hrf_y = spm_hrf(1, hrf_params_youngMan);
@@ -57,7 +57,7 @@ beta = (X' * X)^-1 * X' * Y;
 Y_pred = X * beta;
 
 figure;
-plot(Y, 'k', 'LineWidth', 3); hold on;
+plot(Y, 'k', 'LineWidth', 2); hold on;
 % plot(Y_pred, ':r', 'LineWidth', 2); hold on;
 legend('data', 'glm')
 
