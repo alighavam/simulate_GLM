@@ -17,7 +17,7 @@ function X = spm_fMRI_design_sim(SPM)
     %-Get inputs, neuronal causes or stimulus functions U
     %----------------------------------------------------------------------
     U = spm_get_ons_sim(SPM);
-
+    
     %-Convolve stimulus functions with basis functions
     %----------------------------------------------------------------------
     [X,~,~] = spm_Volterra_sim(U, SPM.xBF.bf, SPM.xBF.Volterra);

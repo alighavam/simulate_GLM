@@ -34,11 +34,14 @@ switch model
         J = [];
         
         % onets of the events:
-        J.U.ons = ons;  % Ali's note: This is defined like this for the sake of this 
-                        % simulation. SPM's definition of events is much more complete
-                        % and detailed. Check spm_rwls_run_fmri_spec() for the details
-                        % of how U is made and how it looks like in real SPM. 
-        J.U.dur = dur;
+        % Ali's note: U is defined like this for the sake of this 
+                    % simulation. SPM's definition of events is much more complete
+                    % and detailed. Check spm_rwls_run_fmri_spec() for the details
+                    % of how U is made and how it looks like in real SPM. 
+        for i = 1:size(ons,2)
+            J.U(i).ons = ons(i,:);  
+            J.U(i).dur = dur(i,:);
+        end
         J.nscan = nscan;
         
         J.timing.units = 'secs';
