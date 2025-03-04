@@ -39,8 +39,8 @@ switch model
                     % and detailed. Check spm_rwls_run_fmri_spec() for the details
                     % of how U is made and how it looks like in real SPM. 
         for i = 1:size(ons,2)
-            J.U(i).ons = ons(i,:);  
-            J.U(i).dur = dur(i,:);
+            J.U(i).ons = ons(:,i);  
+            J.U(i).dur = dur(:,i);
         end
         J.nscan = nscan;
         

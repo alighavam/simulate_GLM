@@ -4,8 +4,8 @@ function [X,Xname,Fc] = spm_Volterra_sim(U,bf,V)
     
     %-1st order terms
     %==========================================================================
+    X     = [];
     for i = 1:numel(U)
-        X     = [];
         for k = 1:size(U(i).u,2)
         for p = 1:size(bf,2)
             x = U(i).u(:,k);
