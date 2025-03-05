@@ -24,28 +24,28 @@ onsets = [half1';half2'];
 
 
 %% Run Simulation
-mu = 0;
-sigma = 0;
-% cannonical hrf: 
-hrf_params_canon = [6 16 1 1 2 0 32];
 % an example young man hrf: 
-hrf_params_youngMan = [4.5 11 1 1 1 0 32];
+hrf_params_y = [4.5 11 1 1 1 0 32];
+% cannonical hrf: 
+hrf_params_x = [6 16 1 1 6 0 32];
 
 figure;
-hrf_y = spm_hrf(1, hrf_params_youngMan);
-hrf_x = spm_hrf(1, hrf_params_canon);
-plot(hrf_y, 'k', 'LineWidth', 2); hold on;
-plot(hrf_x, '--r', 'LineWidth', 2);
+hrf_y = spm_hrf(1, hrf_params_y);
+hrf_x = spm_hrf(1, hrf_params_x);
+plot(hrf_y/max(hrf_y), 'k', 'LineWidth', 2); hold on;
+plot(hrf_x/max(hrf_x), '--r', 'LineWidth', 2);
 legend('data hrf', 'glm hrf')
 
 % SIMULATE DATA:
-Y = simulate_GLM('simulate_GLM', nscan, onsets, hrf_params_youngMan, ...
+Y = simulate_GLM('simulate_GLM', nscan, onsets, hrf_params_y, ...
                 'add_noise', 0, 'mu', 0, 'sigma', 0.003);
 Y = sum(Y,2);
+mu = 0;
+sigma = max(Y)/7;
 Y = Y + mu + sigma * randn(size(Y));
 
 % Design Matrix:
-X = simulate_GLM('simulate_GLM', nscan, onsets, hrf_params_canon);
+X = simulate_GLM('simulate_GLM', nscan, onsets, hrf_params_x);
 
 % GLM:
 % mean rmv:
@@ -58,7 +58,7 @@ Y_pred = X * beta;
 
 figure;
 plot(Y, 'k', 'LineWidth', 2); hold on;
-% plot(Y_pred, ':r', 'LineWidth', 2); hold on;
+plot(Y_pred, ':r', 'LineWidth', 2); hold on;
 legend('data', 'glm')
 
 
